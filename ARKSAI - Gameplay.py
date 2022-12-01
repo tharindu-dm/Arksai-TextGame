@@ -7,11 +7,12 @@ decision = ""
 weapon = "None"
 atk = 70; deff = 40; spd = 50
 hp = 500; mp = 800
-PlayerItems = ["Money bag"]; title = ["Demon slayer", "Knight", "Survivor", "Ranker"]
+PlayerItems = ["Money bag"];
+title = ["Demon slayer", "Knight", "Survivor", "Ranker"]
 
-#ALL ITEMS AT gamepoints
-item_g1 = ["Dagger (weapon)", "Drawstring cloth bag", "Unkown book"]
-# unknown book is a grimory - can't read until magic is known.
+#ALL ITEMS AT gamepoints(g<num>)
+item_g1 = ["Dagger (weapon)", "Drawstring cloth bag", "Unkown book"] # unknown book is a grimory - can't read until magic is known.
+
 
 #ALL functions
 def profile(player):  #display profiel status
@@ -24,7 +25,7 @@ def profile(player):  #display profiel status
     input("")
     
 def initialGamePoint():
-#save point 1
+    #Starting Point
     print("\nYou see a small village down side of the mountain\n")
     decision = input("\n(1)Go to village\n(2)Look around\n(3)Check Status\nYOUR CHOICE\t: ")
     if decision == "1":
@@ -50,34 +51,72 @@ def initialGamePoint():
         
         initialGamePoint()
 
-def villageGamePoint():
+def villageOUTGamePoint():
+    #enter? dungeon? mountain?
+    print("\nYou are outside the village\n")
+
+def villageINGamePoint():
     print("You Entered the village.")
-    print("\n(1)Go to Adventurers' Guild\n(2)Look around\n(3)Check Status\n")
+    
+    print("\n(1)Go to Adventurers' Guild\n(2)Visit Library\n(3)Check Status\n(4)Access Inventory\n(5)Check Medical Center\n")
+    print("(6)Go to Blacksmith\n(7)Checkout Souvernir Shop\n(11)Exit Village\n")
+    
     decision = input("YOUR CHOICE\t: ")
+    
     if decision == "1":
         print("You went back and found the road leading to the village. You decided to walk along and you finally reached the village entrance.\n")
         input("")
-    elif decision == "2":
-        if(len(item_g1) > 0):
-            print("You found some items near the foot of the tree and decided to get them all.")
-            print("You obtained\n", item_g1)
-            for i in item_g1:
-                PlayerItems.append(i)
-            item_g1.clear()
-        else:
-            print("There's nothing more than a beautiful scenery")
+    elif decision == "2":   #Visit Library
+        #count visit times
+        libraryGamePoint()
         
-        initialGamePoint()
+        villageINGamePoint()
     elif decision == "3":
         profile(plyName)
         
-        villageGamePoint()  
+        villageINGamePoint()  
+    elif decision == "4":
+        profile(plyName)
+        
+        villageINGamePoint()  
+    elif decision == "5":
+        profile(plyName)
+        
+        villageINGamePoint()  
+    elif decision == "6":
+        profile(plyName)
+        
+        villageINGamePoint()  
+    elif decision == "7":
+        profile(plyName)
+        
+        villageINGamePoint()  
+    elif decision == "11":
+        villageOUTGamePoint()
+        
     else:
         print("Wrong input\n")
         
-        villageGamePoint()
-        
-while True:     #getting player name
+        villageINGamePoint()
+
+def adv_guildGamePoint():
+    print("")
+
+def libraryGamePoint():
+    print("")
+
+def medicalCenterGamePoint():
+    print("")
+
+def blacksmithGamePoint():
+    print("")
+
+def souvernirShopGamePoint():
+    print("")
+
+
+#GETTING Player Name
+while True:
     plyName = input("\nEnter player Name (10 characters)\t: ")
     if len(plyName) > 10:
         print("Invalid Player name.")
@@ -86,8 +125,8 @@ while True:     #getting player name
         break
 print("WELCOME", plyName, ", to ARKSAI\nTHE story unfolds.....\n\n")
 
-#game begins here
-    #Realisation
+#GAME begins here
+    #Stage 0
 print("Press Enter to continue dialogues\nPress required key only, for Actions\n")
 input("\nUnkown voice : Wake up child!")
 input("\nHuh? What? Where am I? Who are you?")
@@ -96,8 +135,8 @@ input("\n...")
 input("\nSupreme one : Child, you are the chosen one! Now go and get em boy")
 #seriously! fix this dialogue set
 
-    #After reincarnation
+    #Stage 1
 print("\nYou open your eyes under an orange-leaved tree on a cliff.")
 initialGamePoint()
-villageGamePoint()
+villageOUTGamePoint()
 
