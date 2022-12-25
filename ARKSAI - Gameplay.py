@@ -1,14 +1,15 @@
 #ARKSAINT - Gameplay
 
-#player profile
-currency = 10_000 #refered as CC
+#player profile     (should have the abilitiy to Create and save text files in player names)
+currency = 10000 #refered as CC
 decision = ""
 
 weapon = "None"
 atk = 70; deff = 40; spd = 50
 hp = 500; mp = 800
 PlayerItems = ["Money bag"];
-title = ["Demon slayer", "Knight", "Survivor", "Ranker"]
+title = []
+rank = ''
 
 #ALL ITEMS AT gamepoints(g<num>)
 item_g1 = ["Dagger (weapon)", "Drawstring cloth bag", "Unkown book"] # unknown book is a grimory - can't read until magic is known.
@@ -28,9 +29,12 @@ def initialGamePoint():
     #Starting Point
     print("\nYou see a small village down side of the mountain\n")
     decision = input("\n(1)Go to village\n(2)Look around\n(3)Check Status\nYOUR CHOICE\t: ")
+
     if decision == "1":
-        print("You went back and found the road leading to the village. You decided to walk along and you finally reached the village entrance.\n")
+        print("You went back and found the road leading to the village. You decided to walk along and you finally reached the village entrance.")
         input("")
+        villageOUTGamePoint()
+
     elif decision == "2":
         if(len(item_g1) > 0):
             print("You found some items near the foot of the tree and decided to get them all.")
@@ -38,34 +42,41 @@ def initialGamePoint():
             for i in item_g1:
                 PlayerItems.append(i)
             item_g1.clear()
+
         else:
             print("There's nothing more than a beautiful scenery")
         
         initialGamePoint()
+
     elif decision == "3":
         profile(plyName)
-        
-        initialGamePoint()   
+        initialGamePoint()  
+
     else:
         print("Wrong input\n")
-        
         initialGamePoint()
 
-def villageOUTGamePoint():
+def villageOUTGamePoint():  #Exit/Outside the village
     #enter? dungeon? mountain?
     print("\nYou are outside the village\n")
 
-def villageINGamePoint():
-    print("You Entered the village.")
+    #add conditons decisions. for now directly entiring the village
+    input("You decided to enter the village\n")
+    villageINGamePoint()
+
+def villageINGamePoint():   #Enter/Inside the village
+    print("You're in the village.")
     
     print("\n(1)Go to Adventurers' Guild\n(2)Visit Library\n(3)Check Status\n(4)Access Inventory\n(5)Check Medical Center\n")
     print("(6)Go to Blacksmith\n(7)Checkout Souvernir Shop\n(11)Exit Village\n")
     
     decision = input("YOUR CHOICE\t: ")
     
-    if decision == "1":
-        print("You went back and found the road leading to the village. You decided to walk along and you finally reached the village entrance.\n")
-        input("")
+    if decision == "1":     #Adventurers' guild
+        print("You walk toward the advevnturers' guild (Flaming Hearts) and meet the receptionist.\n")
+        adv_guildGamePoint()
+        villageINGamePoint()
+
     elif decision == "2":   #Visit Library
         #count visit times
         libraryGamePoint()
@@ -96,14 +107,44 @@ def villageINGamePoint():
         
     else:
         print("Wrong input\n")
-        
         villageINGamePoint()
 
-def adv_guildGamePoint():
-    print("")
+def adv_guildGamePoint():   #Enter/Inside Adventure guild
+    input("\nWelcome to the adventurers' guild! May I know your inquiry?\n")
+    print("(1) Become an adventurer\n(2)Check quests\n(3)Sell items\n(11)Good bye!\n")
+    
+    decision = input("YOUR CHOICE\t: ")
+    if(decision == "1" and "Adventurer" not in title):  #becomes an adventurer
+        input("\nReceptionist : Please fill your details in this form.")
+        input("\n\t......You fill all the requested details......")
+        input("\nReceptionist : Hmm...")
+        input("\nReceptionist : Look alright! Please wait. I'll register you as an adventurer")
+        input("\nHalf an hour later...")
+        input("\nReceptionist : Congratulations! You are officiallay an Adventuere.")
+        input("\nReceptionist : Your starter rank is 'D'. More expereince you get, quicker you move to a higher rank.")
+        input("\n\n SYSTEM: Achievement: ADVENTURER\n(title: Adventurer obtained)\n +1000CC")
+
+        global currency
+        currency += 1000
+        title.append("Adventurer")
+        adv_guildGamePoint()
+
+    elif(decision == "2"):
+        print("")
+
+    elif(decision == "3"):
+        print("")
+
+    elif(decision == "11"):
+        villageINGamePoint()
+
+    else:
+        print("Invalid Input")
+        adv_guildGamePoint()
 
 def libraryGamePoint():
-    print("")
+    print("The library is still under constructions and the requested books are not imported yet.\n")
+    villageINGamePoint()
 
 def medicalCenterGamePoint():
     print("")
@@ -139,4 +180,8 @@ input("\nSupreme one : Child, you are the chosen one! Now go and get em boy")
 print("\nYou open your eyes under an orange-leaved tree on a cliff.")
 initialGamePoint()
 villageOUTGamePoint()
+
+
+
+
 
