@@ -12,7 +12,9 @@ title = []
 rank = ''
 
 #Adv_guild variables
-questBoard = []
+questBoard = [""]
+acceptedQuestNo = -1
+
 
 #ALL ITEMS AT gamepoints(g<num>)
 item_g1 = ["Dagger (weapon)", "Drawstring cloth bag", "Unknown book"] # unknown book is a grimory - can't read until magic is known.
@@ -34,9 +36,8 @@ def initialGamePoint():
     decision = input("\n(1)Go to village\n(2)Look around\n(3)Check Status\nYOUR CHOICE\t: ")
 
     if decision == "1":
-        print("You went back and found the road leading to the village. You decided to walk along and you finally reached the village entrance.")
-        input("")
-        villageOUTGamePoint()
+        input("You went back and found the road leading to the village. You decided to walk along and you finally reached the village entrance.")
+        #villageOUTGamePoint() //no need since villageOUT is called, after calling this
 
     elif decision == "2":
         if(len(item_g1) > 0):
@@ -60,12 +61,35 @@ def initialGamePoint():
         initialGamePoint()
 
 def villageOUTGamePoint():  #Exit/Outside the village
-    #enter? dungeon? mountain?
-    print("\nYou are outside the village\n")
+    #enter village? dungeon? mountain?
+    print("\nYou are outside the village.\nThe path leads to...")
+    print("(1) Mountains (starting point)\n(2) Village (Walk in)\n(3) Dungeon\n")
+    decision = input("YOUR CHOICE\t: ")
 
-    #add conditons decisions. for now directly entiring the village
+    #edit the conditions
+    if decision == "1":     #Adventurers' guild
+        input("You decided to enter the village\n")
+        villageINGamePoint()
+
+    elif decision == "2":   #Visit Library
+        #count visit times
+        libraryGamePoint()
+        
+        villageINGamePoint()
+
+    elif decision == "3":
+        profile(plyName)
+        
+        villageINGamePoint()  
+
+    elif decision == "4":
+        profile(plyName)
+        
+        villageINGamePoint()  
+
+    else:
     input("You decided to enter the village\n")
-    villageINGamePoint()
+        villageINGamePoint()
 
 def villageINGamePoint():   #Enter/Inside the village
     print("You're in the village.")
@@ -111,9 +135,8 @@ def villageINGamePoint():   #Enter/Inside the village
         
         villageINGamePoint()  
 
-    elif decision == "11":
-        villageOUTGamePoint()
-        
+    elif decision == "11":  #no need to rerun villageOut funciton since this function is called from it
+        return 11
     else:
         print("Wrong input\n")
         villageINGamePoint()
@@ -125,7 +148,7 @@ def adv_guildGamePoint():   #Enter/Inside Adventure guild
     
     decision = input("YOUR CHOICE\t: ")
     if(decision == "1"):  #becomes an adventurer
-        if("Adventurer" not in title):
+        if("Adventurer" not in title):  #if adventurer title not earned
             input("\nReceptionist : Please fill your details in this form.")
             input("\n......You fill all the requested details......")
             input("\nReceptionist : Hmm...")
@@ -135,6 +158,7 @@ def adv_guildGamePoint():   #Enter/Inside Adventure guild
             input("\nReceptionist : Your starter rank is 'D'. More expereince you get, quicker you move to a higher rank.")
             input("\n\nSYSTEM: Achievement: ADVENTURER\n(title: Adventurer obtained)\n+1000CC")
 
+            #reward
             rank = 'D'
             currency += 1000
             title.append("Adventurer")
@@ -145,14 +169,17 @@ def adv_guildGamePoint():   #Enter/Inside Adventure guild
         adv_guildGamePoint()
 
     elif(decision == "2"):
-        print("")
+        print("================ Quest Board ================\n")
+        questCount = 0
+        for quest in questBoard:
+            questCount += 1
+            print(">",questCount,":", quest)
 
     elif(decision == "3"):
-        print("")
+        print("\nWe currently do not purchase items")
 
     elif(decision == "11"):
         input("Receptionist : Have a nice day!\n")
-        villageINGamePoint()
 
     else:
         print("Invalid Input")
