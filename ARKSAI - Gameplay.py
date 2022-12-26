@@ -12,7 +12,7 @@ title = []
 rank = ''
 
 #ALL ITEMS AT gamepoints(g<num>)
-item_g1 = ["Dagger (weapon)", "Drawstring cloth bag", "Unkown book"] # unknown book is a grimory - can't read until magic is known.
+item_g1 = ["Dagger (weapon)", "Drawstring cloth bag", "Unknown book"] # unknown book is a grimory - can't read until magic is known.
 
 
 #ALL functions
