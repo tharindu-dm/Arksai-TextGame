@@ -7,9 +7,12 @@ decision = ""
 weapon = "None"
 atk = 70; deff = 40; spd = 50
 hp = 500; mp = 800
-PlayerItems = ["Money bag"];
+PlayerItems = ["Money bag"]
 title = []
 rank = ''
+
+#Adv_guild variables
+questBoard = []
 
 #ALL ITEMS AT gamepoints(g<num>)
 item_g1 = ["Dagger (weapon)", "Drawstring cloth bag", "Unknown book"] # unknown book is a grimory - can't read until magic is known.
@@ -67,7 +70,7 @@ def villageOUTGamePoint():  #Exit/Outside the village
 def villageINGamePoint():   #Enter/Inside the village
     print("You're in the village.")
     
-    print("\n(1)Go to Adventurers' Guild\n(2)Visit Library\n(3)Check Status\n(4)Access Inventory\n(5)Check Medical Center\n")
+    print("(1)Go to Adventurers' Guild\n(2)Visit Library\n(3)Check Status\n(4)Access Inventory\n(5)Check Medical Center\n")
     print("(6)Go to Blacksmith\n(7)Checkout Souvernir Shop\n(11)Exit Village\n")
     
     decision = input("YOUR CHOICE\t: ")
@@ -82,26 +85,32 @@ def villageINGamePoint():   #Enter/Inside the village
         libraryGamePoint()
         
         villageINGamePoint()
+
     elif decision == "3":
         profile(plyName)
         
         villageINGamePoint()  
+
     elif decision == "4":
         profile(plyName)
         
         villageINGamePoint()  
+
     elif decision == "5":
         profile(plyName)
         
-        villageINGamePoint()  
+        villageINGamePoint() 
+
     elif decision == "6":
         profile(plyName)
         
         villageINGamePoint()  
+
     elif decision == "7":
         profile(plyName)
         
         villageINGamePoint()  
+
     elif decision == "11":
         villageOUTGamePoint()
         
@@ -110,23 +119,29 @@ def villageINGamePoint():   #Enter/Inside the village
         villageINGamePoint()
 
 def adv_guildGamePoint():   #Enter/Inside Adventure guild
+    global currency, rank
     input("\nWelcome to the adventurers' guild! May I know your inquiry?\n")
     print("(1) Become an adventurer\n(2)Check quests\n(3)Sell items\n(11)Good bye!\n")
     
     decision = input("YOUR CHOICE\t: ")
-    if(decision == "1" and "Adventurer" not in title):  #becomes an adventurer
-        input("\nReceptionist : Please fill your details in this form.")
-        input("\n\t......You fill all the requested details......")
-        input("\nReceptionist : Hmm...")
-        input("\nReceptionist : Look alright! Please wait. I'll register you as an adventurer")
-        input("\nHalf an hour later...")
-        input("\nReceptionist : Congratulations! You are officiallay an Adventuere.")
-        input("\nReceptionist : Your starter rank is 'D'. More expereince you get, quicker you move to a higher rank.")
-        input("\n\n SYSTEM: Achievement: ADVENTURER\n(title: Adventurer obtained)\n +1000CC")
+    if(decision == "1"):  #becomes an adventurer
+        if("Adventurer" not in title):
+            input("\nReceptionist : Please fill your details in this form.")
+            input("\n......You fill all the requested details......")
+            input("\nReceptionist : Hmm...")
+            input("\nReceptionist : Look alright! Please wait. I'll register you as an adventurer")
+            input("\nHalf an hour later...")
+            input("\nReceptionist : Congratulations! You are officiallay an Adventuere.")
+            input("\nReceptionist : Your starter rank is 'D'. More expereince you get, quicker you move to a higher rank.")
+            input("\n\nSYSTEM: Achievement: ADVENTURER\n(title: Adventurer obtained)\n+1000CC")
 
-        global currency
-        currency += 1000
-        title.append("Adventurer")
+            rank = 'D'
+            currency += 1000
+            title.append("Adventurer")
+            
+        else:
+            print("Receptionist : You are already a registered adventurer!\nYour rank is", rank)
+        
         adv_guildGamePoint()
 
     elif(decision == "2"):
@@ -136,6 +151,7 @@ def adv_guildGamePoint():   #Enter/Inside Adventure guild
         print("")
 
     elif(decision == "11"):
+        input("Receptionist : Have a nice day!\n")
         villageINGamePoint()
 
     else:
